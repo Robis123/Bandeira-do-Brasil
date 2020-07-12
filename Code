@@ -1,0 +1,139 @@
+from graphics import *
+
+
+class Formas:
+   def estrela(pse, pid, proporcao, jan):
+       proPixelCol = int((pid.getX() - pse.getX()) * proporcao / 100)
+       proPixelLin = int((pid.getY() - pse.getY()) * proporcao / 100)
+       pie = Point(pse.getX(), pid.getY())
+       meioCol = int((pid.getX() - pse.getX()) / 2)
+       meioLin = int((pid.getY() - pse.getY()) / 2)
+       col = pse.getX() + meioCol
+       lin = pse.getY()
+       p1 = Point(col, lin)
+       col = pse.getX() + meioCol + (proPixelCol / 1.25)
+       lin = pse.getY() + meioLin - proPixelLin
+       p2 = Point(col, lin)
+       col = pid.getX()
+       lin = pse.getY() + meioLin - proPixelLin
+       p3 = Point(col, lin)
+       col = pse.getX() + meioCol + proPixelCol
+       lin = pse.getY() + meioLin + (proPixelLin / 2.5)
+       p4 = Point(col, lin)
+       col = pse.getX() + meioCol
+       lin = pid.getY()
+       p5 = Point(pid.getX() - (proPixelCol * 1.25), pid.getY() - proPixelLin)
+       col = pse.getX() + meioCol
+       lin = pse.getY() + meioLin + (proPixelLin * 1.125)
+       p6 = Point(col, lin)
+       col = pse.getX()
+       lin = pse.getY() + meioLin
+       p7 = Point(pid.getX() - (meioCol * 2) + (proPixelCol * 1.25), pid.getY() - proPixelLin)
+       col = pse.getX() + meioCol - proPixelCol
+       lin = pse.getY() + meioLin + proPixelLin / 2.5
+       p8 = Point(col, lin)
+       col = pse.getX()
+       lin = pse.getY() + meioLin - proPixelLin
+       p9 = Point(col, lin)
+       col = pse.getX() + meioCol - (proPixelCol / 1.25)
+       lin = pse.getY() + meioLin - proPixelLin
+       p10 = Point(col, lin)
+       p = Polygon(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
+       p.setOutline('white')
+       p.setFill('white')
+       p.draw(jan)
+       return
+
+   def losango(pse, pid, janela):
+       meioCol = pse.getX() + int((pid.getX() - pse.getX()) / 2)
+       meioLin = pse.getY() + int((pid.getY() - pse.getY()) / 2)
+       psm = Point(meioCol, pse.getY())
+       pdm = Point(pid.getX(), meioLin)
+       pim = Point(meioCol, pid.getY())
+       pem = Point(pse.getX(), meioLin)
+       losango = Polygon(pem, psm, pdm, pim)
+       losango.setFill(color_rgb(255, 223, 0))
+       losango.setOutline(color_rgb(0, 156, 59))
+       losango.draw(janela)
+       return
+
+   def parabol(jan):
+       for engrossar in range(20):
+           x = -1
+           while x < 1:
+               y = x ** 2
+               xCalc = 399 + (x*150)
+               yCalc = 239 + (y * 40) + engrossar
+               ponto = Point(xCalc, yCalc)
+               ponto.setFill('white')
+               ponto.draw(jan)
+               x += 0.01
+
+   def texto(ponto, tex, jan):
+       text = Text(ponto, tex)
+       text.setFill('green')
+       text.draw(jan)
+       text.setSize(15)
+
+
+def main():
+   janela = GraphWin('Bandeira do Brasil', 800, 600)
+   janela.setBackground(color_rgb(0, 156, 59))
+   Formas.losango(Point(86, 69), Point(716, 520), janela)
+   circulo = Circle(Point(399, 299), 150)
+   circulo.setFill(color_rgb(0, 39, 118))
+   circulo.draw(janela)
+   Formas.parabol(janela)
+   Formas.texto(Point(260, 284),'O',janela)
+   Formas.texto(Point(278, 276), 'R', janela)
+   Formas.texto(Point(296, 269),'D', janela)
+   Formas.texto(Point(314, 261), 'E', janela)
+   Formas.texto(Point(332, 256), 'M', janela)
+   Formas.texto(Point(362, 251), 'E', janela)
+   Formas.texto(Point(392, 250), 'P', janela)
+   Formas.texto(Point(410, 250), 'R', janela)
+   Formas.texto(Point(428, 252), 'O', janela)
+   Formas.texto(Point(446, 254), 'G', janela)
+   Formas.texto(Point(464, 257), 'R', janela)
+   Formas.texto(Point(482, 261), 'E', janela)
+   Formas.texto(Point(500, 267), 'S', janela)
+   Formas.texto(Point(518, 274), 'S', janela)
+   Formas.texto(Point(536, 281), 'O', janela)
+   Formas.estrela(Point(267, 299), Point(275, 310), 21, janela)
+   Formas.estrela(Point(436, 225), Point(442, 235), 21, janela)
+   Formas.estrela(Point(434, 265), Point(440, 275), 21, janela)
+   Formas.estrela(Point(269, 360), Point(277, 370), 21, janela)
+   Formas.estrela(Point(285, 345), Point(295, 355), 21, janela)
+   Formas.estrela(Point(299, 335), Point(304, 340), 21, janela)
+   Formas.estrela(Point(328, 360), Point(334, 370), 21, janela)
+   Formas.estrela(Point(322, 380), Point(326, 385), 21, janela)
+   Formas.estrela(Point(338, 390), Point(344, 400), 21, janela)
+   Formas.estrela(Point(340, 310), Point(346, 320), 21, janela)
+   Formas.estrela(Point(395, 320), Point(405, 330), 21, janela)
+   Formas.estrela(Point(395, 380), Point(405, 390), 21, janela)
+   Formas.estrela(Point(398, 440), Point(402, 443), 21, janela)
+   Formas.estrela(Point(395, 380), Point(405, 390), 21, janela)
+   Formas.estrela(Point(420, 340), Point(430, 350), 21, janela)
+   Formas.estrela(Point(380, 340), Point(385, 350), 21, janela)
+   Formas.estrela(Point(390, 354), Point(393, 362), 21, janela)
+   Formas.estrela(Point(400, 396), Point(410, 402), 21, janela)
+   Formas.estrela(Point(460, 408), Point(465, 416), 21, janela)
+   Formas.estrela(Point(468, 400), Point(473, 408), 21, janela)
+   Formas.estrela(Point(476, 396), Point(482, 402), 21, janela)
+   Formas.estrela(Point(484, 386), Point(490, 392), 21, janela)
+   Formas.estrela(Point(484, 397), Point(492, 406), 21, janela)
+   Formas.estrela(Point(484, 408), Point(490, 414), 21, janela)
+   Formas.estrela(Point(494, 390), Point(500, 396), 21, janela)
+   Formas.estrela(Point(504, 380), Point(514, 390), 21, janela)
+   Formas.estrela(Point(514, 365), Point(524, 375), 21, janela)
+   Formas.estrela(Point(500, 350), Point(510, 360), 21, janela)
+   Formas.estrela(Point(524, 353), Point(529, 358), 21, janela)
+   janela.getMouse()
+   janela.close()
+main()
+
+
+
+
+
+
