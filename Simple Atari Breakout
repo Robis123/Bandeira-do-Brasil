@@ -1,0 +1,251 @@
+from graphics import *
+import random
+
+
+
+
+win = GraphWin("Bolinha ...", 800, 600)
+
+linhaSuperior = Line(Point(0, 40), Point(800, 40))
+linhaSuperior.setWidth(10)
+linhaSuperior.setFill(color_rgb(10, 100, 10))
+linhaSuperior.draw(win)
+
+linhaInferior = Line(Point(0, 550), Point(800, 550))
+linhaInferior.setWidth(3)
+linhaInferior.setFill(color_rgb(10, 100, 10))
+linhaInferior.draw(win)
+continuar3 = True
+gameover = Text(Point(400, 300), 'Game Over')
+gameover.setSize(30)
+cont = Text(Point(400, 400), 'Para reiniciar clique com o mouse na tela')
+cont.setSize(30)
+
+col = 390
+lin = 60
+raio = 15
+ponto = 0
+pontos = Text(Point(400, 575), f"Pontos: {ponto}")
+pontos.setSize(14)
+pontos.draw(win)
+circulo=Circle(Point(col, lin), raio)
+circulo.setFill(color_rgb(10, 10, 100))
+circulo.draw(win)
+colIni = 350
+barra=Line(Point(colIni, 530), Point(colIni+100, 530))
+barra.setFill(color_rgb(100, 10, 10))
+barra.setWidth(10)
+barra.draw(win)
+
+vertical=5
+bateu = True
+continuar = True
+continuar2 = True
+while continuar:
+
+ if bateu:
+     horiz = random.randrange(-10, 10)
+     bateu = False
+
+ if (col + horiz + raio) > 800:
+     horiz = -horiz
+
+ if (col + horiz - raio) < -4:
+     horiz = -horiz
+
+ if (lin + vertical - raio) < 40:
+     vertical = -vertical
+
+ if (lin + vertical + raio) > 530 and ((colIni + 100)>col>colIni):
+     if colIni + 25 > col > colIni:
+         bateu = True
+         ponto += 1
+         pontos.undraw()
+         pontos = Text(Point(400, 575), f"Pontos: {ponto}")
+         pontos.setSize(14)
+         pontos.draw(win)
+         vertical = -vertical
+     elif col + 75 > col > colIni + 25:
+         ponto += 1
+         pontos.undraw()
+         pontos = Text(Point(400, 575), f"Pontos: {ponto}")
+         pontos.setSize(14)
+         pontos.draw(win)
+         vertical = -vertical
+     elif col + 100 > col > colIni + 75:
+         ponto += 1
+         pontos.undraw()
+         pontos = Text(Point(400, 575), f"Pontos: {ponto}")
+         pontos.setSize(14)
+         pontos.draw(win)
+         bateu = True
+         vertical = -vertical
+ if (lin + vertical + raio) > 540:
+     while continuar2:
+         gameover.draw(win)
+         cont.draw(win)
+
+         #Espera o clique para reiniciar o while
+         if win.getMouse():
+             continuar2 = False
+             continuar = False
+
+ # Nova posição do círculo
+ circulo.undraw()
+ col += horiz
+ lin += vertical
+ circulo = Circle(Point(col, lin), 15)
+ circulo.setFill(color_rgb(10, 10, 100))
+ circulo.draw(win)
+
+ # Movimento horizontal da barra pelas setas direita/esquerda
+ tecla = win.checkKey()
+
+ # Sair do joguinho
+ if tecla == "Escape":
+     continuar = False
+     continuar3 = False
+     continue
+
+ if tecla == "Right":
+     if (colIni + 20) < 701:
+         colIni = colIni + 20
+
+     barra.undraw()
+     barra = Line(Point(colIni, 530), Point(colIni + 100, 530))
+     barra.setFill(color_rgb(100, 10, 10))
+     barra.setWidth(10)
+     barra.draw(win)
+
+ if tecla == "Left":
+     if (colIni - 20) > -1:
+         colIni = colIni - 20
+
+     barra.undraw()
+     barra = Line(Point(colIni, 530), Point(colIni + 100, 530))
+     barra.setFill(color_rgb(100, 10, 10))
+     barra.setWidth(10)
+     barra.draw(win)
+
+ # Esperar o ser humano reagir
+ time.sleep(.07)
+
+while continuar3:
+  circulo.undraw()
+  barra.undraw()
+  gameover.undraw()
+  cont.undraw()
+  pontos.undraw()
+  col = 390
+  lin = 60
+  raio = 15
+  ponto = 0
+  pontos = Text(Point(400, 575), f"Pontos: {ponto}")
+  pontos.setSize(14)
+  pontos.draw(win)
+  circulo=Circle(Point(col, lin), raio)
+  circulo.setFill(color_rgb(10, 10, 100))
+  circulo.draw(win)
+  colIni = 350
+  barra=Line(Point(colIni, 530), Point(colIni+100, 530))
+  barra.setFill(color_rgb(100, 10, 10))
+  barra.setWidth(10)
+  barra.draw(win)
+
+  vertical=5
+  bateu = True
+  continuar = True
+  continuar2 = True
+  while continuar:
+
+     if bateu:
+         horiz = random.randrange(-10, 10)
+         bateu = False
+
+     if (col + horiz + raio) > 800:
+         horiz = -horiz
+
+     if (col + horiz - raio) < -4:
+         horiz = -horiz
+
+     if (lin + vertical - raio) < 40:
+         vertical = -vertical
+
+     if (lin + vertical + raio) > 530 and ((colIni + 100)>col>colIni):
+         if colIni + 25 > col > colIni:
+             bateu = True
+             ponto += 1
+             pontos.undraw()
+             pontos = Text(Point(400, 575), f"Pontos: {ponto}")
+             pontos.setSize(14)
+             pontos.draw(win)
+             vertical = -vertical
+         elif col + 75 > col > colIni + 25:
+             ponto += 1
+             pontos.undraw()
+             pontos = Text(Point(400, 575), f"Pontos: {ponto}")
+             pontos.setSize(14)
+             pontos.draw(win)
+             vertical = -vertical
+         elif col + 100 > col > colIni + 75:
+             ponto += 1
+             pontos.undraw()
+             pontos = Text(Point(400, 575), f"Pontos: {ponto}")
+             pontos.setSize(14)
+             pontos.draw(win)
+             bateu = True
+             vertical = -vertical
+
+     if (lin + vertical + raio) > 540:
+         while continuar2:
+             gameover.draw(win)
+             cont = Text(Point(400, 400), 'Para reiniciar clique com o mouse na tela')
+             cont.setSize(30)
+             cont.draw(win)
+             if win.getMouse():
+                 continuar2 = False
+                 continuar = False
+
+     # Nova posição do círculo
+     circulo.undraw()
+     col += horiz
+     lin += vertical
+     circulo = Circle(Point(col, lin), 15)
+     circulo.setFill(color_rgb(10, 10, 100))
+     circulo.draw(win)
+
+     # Movimento horizontal da barra pelas setas direita/esquerda
+     tecla = win.checkKey()
+
+     # Sair do joguinho
+     if tecla == "Escape":
+         continuar = False
+         continuar3 = False
+         continue
+
+     if tecla == "Right":
+         if (colIni + 20) < 701:
+             colIni = colIni + 20
+
+         barra.undraw()
+         barra = Line(Point(colIni, 530), Point(colIni + 100, 530))
+         barra.setFill(color_rgb(100, 10, 10))
+         barra.setWidth(10)
+         barra.draw(win)
+
+     if tecla == "Left":
+         if (colIni - 20) > -1:
+             colIni = colIni - 20
+
+         barra.undraw()
+         barra = Line(Point(colIni, 530), Point(colIni + 100, 530))
+         barra.setFill(color_rgb(100, 10, 10))
+         barra.setWidth(10)
+         barra.draw(win)
+
+     # Esperar o ser humano reagir
+     time.sleep(.07)
+win.close()
+circulo = Circle(Point(0, 0), 0)
+barra = Line(Point(0, 0), Point(0, 0))
+pontos = Text(Point(0, 0), '')
